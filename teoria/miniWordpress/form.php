@@ -1,46 +1,8 @@
 <?php
 include_once 'data.php';
-
-
-
-//compruebo si el formulario a sido enviado
-if ($_SERVER["REQUEST_METHOD"] === 'POST') {
-    //RECOJO LOS DATOS DE LOS FORMULARIOS
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $date = $_POST['date'];
-    $image = $_POST['image'];
-    $category = $_POST['category'];
-
-    //validamos con trim y con empty y con isset
-    if (
-        isset($title) && !empty(trim($title)) &&
-        isset($content) && !empty(trim($content)) &&
-        isset($date) && !empty(trim($date)) &&
-        isset($image) && !empty(trim($image)) &&
-        isset($category) && !empty(trim($category))
-    ) {
-        //añadir datos al array
-        array_push($noticias, [
-            'title' => $title,
-            'content' => $content,
-            "date" => $date,
-            "image" => $image,
-            "category" => $category
-
-        ]);
-
-        echo "Noticia añadida correctamente";
-        echo '<p style="color:red">Error: Todos los campos son obligatorios';
-
-    }else{
-        echo '<p style="color:red">Error: El formulario no ha sido enviado correctamente';
-    }
-}
-
 ?>
 
-<form method="POST" action="">
+<form method="POST" action="index.php">
     <label>Título:</label><br>
     <input type="text" name="title" required><br><br>
 
@@ -59,6 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     <button type="submit">Añadir Noticia</button>
 </form>
 
-<?php
+
 
 
