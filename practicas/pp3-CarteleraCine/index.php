@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ocine</title>
 </head>
 <style>
     body {
@@ -15,18 +15,18 @@
     }
 
     .divGeneral {
-        max-width: 1300px;
+        width: 1300px;
         margin: 30px auto;
         background: #fff;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
         padding: 32px;
     }
 
     .cartelera {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); 
         gap: 32px;
-        justify-content: center;
+        justify-items: center;
+        padding: 20px 0;
     }
 
     .cartelera img {
@@ -62,7 +62,7 @@
     }
 
     .cartelera a {
-        color: inherit;
+        color: white;
         text-decoration: none;
     }
 
@@ -71,16 +71,7 @@
         
     }
 
-    .cartelera {
-        gap: 16px;
-        
-
-    }
-    .pelis{
-        display: flex;
-        flex-direction: column;
- 
-    }
+    
     
 
 
@@ -94,15 +85,15 @@
             include 'peliculas.php';
             foreach ($cartelera as $pelicula) {
                 echo "<div class='pelis'>";
-                echo "<img src='" . $pelicula['imatge'] . "' alt='" . $pelicula['nom'] . "' ;'><br>";
+                echo "<img src='" . $pelicula['imatge'] . "' alt='" . $pelicula['nom'] . "' ;'>";
                 echo "<div class='infoPeli'>";
-                echo " <h2>" . $pelicula['nom'] . "</h2> <br>";
+                echo " <h2>" . $pelicula['nom'] . "</h2> ";
                 foreach ($pelicula['horaris'] as $horari) {
                     echo "<p>" . $horari . "</p> ";
                 }
 
                 echo "<button><a href='" . $pelicula['trailer'] . "' target='_blank'>Ver Trailer</a></button>";
-                echo "<button><a href='detall.php?" . $pelicula['nom'] . "' target='_blank'>Ver Detalles</a></button>";
+                echo "<button><a href='detall.php?nom=" . $pelicula['nom'] . "' target='_blank'>Ver Detalles</a></button>";
                 echo "</div>";
             }
             echo "</div>";

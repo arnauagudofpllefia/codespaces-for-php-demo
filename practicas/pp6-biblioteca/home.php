@@ -9,22 +9,27 @@ $username = $_SESSION['username'];
 $photo = $_SESSION['fotoPerfil'];
 $role = $_SESSION['role'];
 
-$_SESSION['libros'] = [
-    [
-        "id" => "1",
-        "titulo" => "Las aventuras de Joel e Ivan",
-        "autor" => "Joel e Ivan",
-        "descripcion" => "Un libro que narra las emocionantes aventuras de dos amigos inseparables.",
-        "imagen" => "https://www.mumuchu.com/media/catalog/product/cache/babc9c3930426724bed95a50193e0e01/l/i/libro-puedo-mirar-tu-pa_al-1.jpg"
-    ],
-    [
-        "id" => "2",
-        "titulo" => "Simón el cochino",
-        "autor" => "María Roxana Muñoz",
-        "descripcion" => "Un libro que narra las emocionantes aventuras de Simón el cochino.",
-        "imagen" => "https://static.comunicae.com/photos/notas/1190604/1509154737_Simo_n_Web.jpg"
-    ]
-];
+
+if (!isset($_SESSION['libros'])) {
+    $_SESSION['libros'] = [
+        [
+            "id" => "0",
+            "titulo" => "Las aventuras de Joel e Ivan",
+            "autor" => "Joel e Ivan",
+            "descripcion" => "Un libro que narra las emocionantes aventuras de dos amigos inseparables.",
+            "imagen" => "https://www.mumuchu.com/media/catalog/product/cache/babc9c3930426724bed95a50193e0e01/l/i/libro-puedo-mirar-tu-pa_al-1.jpg"
+        ],
+        [
+            "id" => "1",
+            "titulo" => "Simón el cochino",
+            "autor" => "María Roxana Muñoz",
+            "descripcion" => "Un libro que narra las emocionantes aventuras de Simón el cochino.",
+            "imagen" => "https://static.comunicae.com/photos/notas/1190604/1509154737_Simo_n_Web.jpg"
+        ]
+    ];
+    $libro = $_SESSION['libros'];
+}
+
 
 
 ?>
@@ -62,6 +67,9 @@ $_SESSION['libros'] = [
             </div>
             <a href="logout.php" class="btn btn-warning btn-sm">
                 Cerrar sesión ❌
+            </a>
+            <a href="destroy.php" class="btn btn-warning btn-sm">
+                Destroy Session ❌
             </a>
         </div>
     </header>
@@ -103,10 +111,10 @@ $_SESSION['libros'] = [
             //<!-- Botones de editar y eliminar (solo visible para el admin) -->
             if ($role === "admin") {
                 echo "<div class='card-footer d-flex justify-content-between'>";
-                echo "<a href='add_edit_book.php?' class='btn btn-outline-primary btn-sm'>";
+                echo "<a href='add_edit_book.php?id=" . $libro['id'] ."' class='btn btn-outline-primary btn-sm'>";
                 echo "<i class='fas fa-edit'></i> Editar";
                 echo "</a>";
-                echo "<a href='delete_book.php' class='btn btn-outline-danger btn-sm'>";
+                echo "<a href='delete_book.php?id='" . $libro['id'] ." class='btn btn-outline-danger btn-sm'>";
                 echo "<i class='fas fa-trash-alt'></i> Eliminar";
                 echo "</a>";
                 echo "</div>";

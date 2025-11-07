@@ -2,31 +2,37 @@
 session_start();
 require_once "functions.php";
 
+
 if ($_SESSION['role'] !== "admin") {
     header("Location: login.php");
     exit();
 }
 
+
+
 $username = $_SESSION['username'];
-$photo = $_SESSION['fotoPerfil'];
 $role = $_SESSION['role'];
-$editMode = false;
+$libro = $_SESSION['libros'];
+
+$id = $_GET['id'];
+$titulo = $_POST['titulo'];
+$autor = $_POST['autor'] ;
+$img = $_POST['imagen'];
+$descripcion = $_POST['descripcion'];
 
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    $editMode = true;
-    $titulo = $_POST['titulo'];
-    $img = $_POST['imagen'];
-    $autor = $_POST['autor'];
-    $desc = $_POST['descripcion'];
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    if($id){
+        editarLibro($id, $titulo, $img, $autor, $descripcion);
+    }else{
+        agregarLibro($titulo, $autor, $img, $descripcion);
+    }
+    
 }
+    
 
-if ($editMode) {
-    editarLibro($id, $titulo, $img, $autor, $desc);
-} else {
-    agregarLibro($titulo, $autor, $img, $desc);
-};
+
 
 ?>
 <!-- AQUI VA LA LÓGICA PHP  -->
@@ -63,15 +69,15 @@ if ($editMode) {
         <!-- Formulario para agregar o editar libro. DEPENDIENDO DE SI SE AÑADE O SE EDITA CAMBIARÁN COSA DEL FORMULARIO, USA TERNARIOS SON MUY ÚTILES-->
         <form method="POST" class="mx-auto" style="max-width: 600px;">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="titulo" name="titulo" value="" placeholder="Título" required>
+                <input type="text" class="form-control" id="titulo" name="titulo" value="<?php $titulo ?>" placeholder="Título" required>
                 <label for="titulo">Título</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="autor" name="autor" value="" placeholder="Autor" required>
+                <input type="text" class="form-control" id="autor" name="autor" value=" <?php $autor ?>" placeholder="Autor" required>
                 <label for="autor">Autor</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="imagen" name="imagen" value="" placeholder="URL de la Imagen">
+                <input type="text" class="form-control" id="imagen" name="imagen" value=" <?php $img ?>" placeholder="URL de la Imagen">
                 <label for="imagen">URL de la Imagen</label>
             </div>
             <div class="form-floating mb-4">

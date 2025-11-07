@@ -35,7 +35,7 @@
     }
 
     .infoPeliDetall{
-        max-width: 600px;
+        width: 600px;
     }
     .infoPeliDetall button{
         margin: 8px 4px 0 4px;
@@ -46,7 +46,7 @@
         color: #fff;
     }
     .infoPeliDetall button a{
-        color: inherit;
+        color: white;
         text-decoration: none;
     }
     
@@ -55,7 +55,7 @@
     <img src="https://www.ocinemagic.es/images/logo-ocine-mag.png#joomlaImage://local-images/logo-ocine-mag.png?width=240&height=119" alt="logo">
     <?php
     include 'peliculas.php';
-    $peliculaNombre = array_key_first($_GET);
+    $peliculaNombre = $_GET['nom'];
     foreach ($cartelera as $pelicula) {
         if ($pelicula['nom'] == $peliculaNombre) {
             echo "<h1>" . $pelicula['nom'] . "</h1>";
