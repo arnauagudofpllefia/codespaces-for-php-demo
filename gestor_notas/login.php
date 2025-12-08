@@ -27,11 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (password_verify($password, $user['password'])){
         $_SESSION['user_id']= $user['id'];
         $_SESSION['user_nom']= $user['name'];
+        $_SESSION['user_surname']= $user['surname'];
         $_SESSION['user_email']= $user['email'];
         $_SESSION['user_rol']= $user['rol'];
         $_SESSION['user_avatar']= $user['avatar'];
 
-        header('Location: admin/dashboard.php');
+        header('Location: home.php');
         exit();
     }else{
         echo 'Contraseña incorrecta.';

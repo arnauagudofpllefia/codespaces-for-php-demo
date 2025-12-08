@@ -7,6 +7,7 @@ require_once ('config.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $nom = $_POST['nom'];
+    $surname = $_POST['surname'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $avatar = $_POST['avatar'];
@@ -15,13 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $password_hasheada = password_hash($password, PASSWORD_DEFAULT);
 
-    $stmt = $mysqli->prepare("INSERT INTO USERS (name, email, password, avatar, rol, date_register) VALUES (?, ?, ?, ?, 'estudiant', NOW())");
+    $stmt = $mysqli->prepare("INSERT INTO USERS (name, surname, email, password, avatar, rol, date_register) VALUES (?, ?, ?, ?, ?, 'estudiant', NOW())");
 
     if (!$stmt){
         die('Error en la preparacion: ' . $mysqli->error);
     }
 
-    $stmt->bind_param('ssss', $nom, $email, $password_hasheada, $avatar);
+    $stmt->bind_param('sssss', $nom, $surname, $email, $password_hasheada, $avatar);
 
     if ($stmt->execute()){
         echo 'Usuario registrado correctamente. <a href="login.php">Iniciar Sesión</a>';
@@ -49,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <form action="register.php" method="POST">
         <label for="nom">Nombre:</label>
         <input type="text" id="nom" name="nom" required>
+
+        <label for="surname">Apellido:</label>
+        <input type="text" id="surname" name="surname" required>
 
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>

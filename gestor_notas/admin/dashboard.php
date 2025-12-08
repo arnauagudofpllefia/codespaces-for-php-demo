@@ -1,11 +1,13 @@
 <?php
 session_start();
+require_once '../config.php';
 
 if($_SESSION['user_rol'] != 'admin'){
 
     header('Location: index.php');
     exit();
 }
+
 
 ?>
 
@@ -17,11 +19,8 @@ if($_SESSION['user_rol'] != 'admin'){
     <title>Dashboard</title>
 </head>
 <body>
-    <?php
-    echo "<h3>" . $_SESSION['user_nom'] . "</h3>";
-    echo "<h4>" . $_SESSION['user_rol'] . "</h4>";
-    echo "<img src='" . $_SESSION['user_avatar'] . "' alt='avatar'>";
-    ?>
+    <h1>Panel de Administració</h1>
+    
     <a href="users/adminUsers.php">Usuarios</a>
     <a href="modulos/adminModulos.php">Modulos</a>
 </body>
