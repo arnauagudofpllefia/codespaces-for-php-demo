@@ -6,9 +6,9 @@ if ($_SESSION['user_rol'] !== 'admin') exit("Sense permisos");
 
 $id = (int) $_GET['id'];
 
-$stmt = $mysqli->prepare("DELETE FROM USERS WHERE id = ?");
+$stmt = $mysqli->prepare("DELETE FROM NOTES WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 
-header("Location: adminUsers.php");
+header("Location: adminNotes.php");
 exit;

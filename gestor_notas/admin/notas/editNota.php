@@ -6,34 +6,22 @@ if ($_SESSION['user_rol'] !== 'admin') exit("Sense permisos");
 
 $id = (int) $_GET['id'];
 
-$result = $mysqli->query("SELECT * FROM USERS WHERE id = $id");
-
-if (!$result) {
-    die("Error en la consulta: " . $mysqli->error);
-}
-
-$users = $result->fetch_assoc();
+$result = $mysqli->query("SELECT * FROM NOTES WHERE id = $id");
+$notes = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $nom = $_POST['name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $avatar = $_POST['avatar'];
-    $rol = $_POST['rol'];
+    $id_alumne = $_POST['id_alumne'];
+    $id_modul = $_POST['id_modul'];
+    $nota = $_POST['nota'];
 
     $stmt = $mysqli->prepare(
-        "UPDATE USERS SET name=?, surname=?, email=?, avatar=?, rol=? WHERE id=?"
+        "UPDATE NOTES SET id_alumne=?, id_modul=?, nota=? WHERE id=?"
     );
-
-    if (!$stmt) {
-        die("Error en la preparación de la consulta: " . $mysqli->error);
-    }
-
-    $stmt->bind_param("sssssi", $nom, $surname, $email, $avatar, $rol, $id);
+    $stmt->bind_param("iiii", $id_alumne, $id_modul, $nota, $id);
     $stmt->execute();
 
-    header("Location: adminUsers.php");
+    header("Location: adminNotas.php");
     exit;
 }
 ?>
@@ -42,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EditUsuaris</title>
+    <title>EditNotas</title>
 </head>
 <style>
 
@@ -120,24 +108,18 @@ input[type="submit"]:hover {
 <body>
 <body>
     <div class="edit-news-container">
-        <h1>Editar Usuaris</h1>
+        <h1>Editar Notes</h1>
 
         <form method="POST">
 
-            <label>Nom:</label>
-            <input type="text" name="name" value="<?= $users['name'] ?>" required>
+            <label>id_alumne:</label>
+            <input type="text" name="id_alumne" value="<?= $notes['id_alumne'] ?>" required>
 
-            <label>Cognom:</label>
-            <input type="text" name="surname" value="<?= $users['surname'] ?>" required>
+            <label>id_modul:</label>
+            <input type="text" name="id_modul" value="<?= $notes['id_modul'] ?>" required>
 
-            <label>Email:</label>
-            <input type="text" name="email" value="<?= $users['email'] ?>" required>
-
-            <label>Avatar:</label>
-            <input type="text" name="avatar" value="<?= $users['avatar'] ?>">
-
-            <label>Rol:</label>
-            <input type="text" name="rol" value="<?= $users['rol'] ?>" required>
+            <label>Notas:</label>
+            <input type="text" name="notas" value="<?= $notes['notas'] ?>">
 
             <input type="submit" value="Guardar Canvis">
         </form>

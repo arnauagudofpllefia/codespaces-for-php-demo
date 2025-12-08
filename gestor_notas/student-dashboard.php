@@ -1,13 +1,6 @@
 <?php
 session_start();
-require_once '../config.php';
-
-if($_SESSION['user_rol'] != 'admin'){
-
-    header('Location: index.php');
-    exit();
-}
-
+require_once 'config.php';
 
 ?>
 
@@ -61,10 +54,9 @@ body > a {
 }
 </style>
 <body>
-    <h1>Panel d' Administració</h1>
+    <h1>Panel d'Estudiant</h1>
     
-    <a href="users/adminUsers.php">Usuarios</a>
-    <a href="modulos/adminModulos.php">Modulos</a>
-    <a href="notas/adminNotas.php">Notas</a>
+    <a href="editarPerfil.php?id=<?= $_SESSION['user_id'] ?>">Editar Perfil</a> |
+
 </body>
 </html>

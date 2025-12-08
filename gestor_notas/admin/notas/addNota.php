@@ -6,26 +6,20 @@ if ($_SESSION['user_rol'] !== 'admin') exit("Sense permisos");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $name = $_POST['nom'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $avatar = $_POST['avatar'];
-    $rol = $_POST['rol'];
+    $id_alumne = $_POST['id_alumne'];
+    $id_modul = $_POST['id_modul'];
+    $nota = $_POST['nota'];
+
 
     $stmt = $mysqli->prepare(
-        "INSERT INTO USERS (name, surname, email, avatar, rol, date_register)
-        VALUES (?, ?, ?, ?, ?, NOW())"
+        "INSERT INTO NOTES (id_alumne, id_modul, nota, data_avaluacio)
+        VALUES (?, ?, ?, NOW())"
 
     );
-
-    if (!$stmt) {
-        die('Error en prepare: ' . $mysqli->error);
-    }
-    
-    $stmt->bind_param("sssss", $name, $surname, $email, $avatar, $rol);
+    $stmt->bind_param("iii", $id_alumne, $id_modul, $nota);
     $stmt->execute();
 
-    header("Location: adminUsers.php");
+    header("Location: adminNotas.php");
     exit;
 }
 ?>
@@ -35,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AddUsuaris</title>
+    <title>AddNotas</title>
 </head>
 <style>
     body {
@@ -113,29 +107,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <body>
-        <div class="news-form-container">
-            <h1>Afegir Usuaris</h1>
-            <form method="POST">
-                <label>Nom:</label>
-                <input type="text" name="nom" required>
 
-                <label>Cognom:</label>
-                <input type="text" name="surname" required>
+    <div class="news-form-container">
+        <h1>Afegir Notas</h1>
+        <form method="POST">
+            <label>ID_Alumne:</label>
+            <input type="text" name="id_alumne" required>
 
-                <label>email:</label>
-                <input type="text" name="email" required>
+            <label>ID_Modul:</label>
+            <input type="text" name="id_modul" required>
 
-                <label>Avatar:</label>
-                <textarea name="avatar" required></textarea>
+            <label>Nota:</label>
+            <input type="text" name="nota" required>
 
-                <label>Rol:</label>
-                <input type="text" name="rol" required>
+            <input type="submit" value="Afegir Notas">
+        </form>
+    </div>
 
-                <input type="submit" value="Afegir Usuari">
-            </form>
-        </div>
-    </body>
 
 </body>
 

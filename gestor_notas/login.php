@@ -39,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     }
 
-}else{
-    echo 'No se encontró ningún usuario con ese email';
 }
 
 
@@ -54,7 +52,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login de Usuario</title>
 </head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+
+    form {
+        background-color: #fff;
+        padding: 25px 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #555;
+    }
+
+
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #6086ccff;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #7798d4ff;
+    }
+
+
+    .error {
+        color: red;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+
+    a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
 <body>
+    <div>
     <h2>Login de Usuario</h2>
     <form action="login.php" method="POST">
         <label for="email">Email:</label>
@@ -67,5 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         <br>
         <input type="submit">
     </form>
+</div>
+    
 </body>
 </html>
