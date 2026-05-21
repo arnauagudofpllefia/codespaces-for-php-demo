@@ -1,4 +1,4 @@
 <?php
 require_once __DIR__ . '/bootstrap.php';
 
-render_page('inicio');
+render_page('collections');

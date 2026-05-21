@@ -89,3 +89,36 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 Copyright © Microsoft Corporation All rights reserved.<br />
 Licensed under the MIT License. See LICENSE in the project root for license information.
+
+## Configuracion de MySQL para este proyecto
+
+Este proyecto fue adaptado para que todo el contenido se lea desde MySQL.
+
+1. Crea la base de datos y carga el esquema + datos iniciales:
+
+```bash
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS shopify_docs CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p shopify_docs < database.sql
+```
+
+2. Configura variables de entorno (puedes usar `.env.example` como referencia):
+
+```bash
+export DB_HOST=127.0.0.1
+export DB_PORT=3306
+export DB_NAME=shopify_docs
+export DB_USER=root
+export DB_PASS=
+```
+
+3. Levanta el servidor PHP:
+
+```bash
+php -S 0.0.0.0:8000
+```
+
+Archivos clave de la migracion:
+
+- `database.sql`: crea tablas e inserta toda la informacion actual del sitio.
+- `bootstrap.php`: conexion PDO a MySQL + carga de contenido.
+- `page-template.php`: plantilla comun renderizada con datos de base de datos.
