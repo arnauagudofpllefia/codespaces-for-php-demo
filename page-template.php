@@ -68,7 +68,7 @@
       z-index: 10;
     }
 
-    .sidebar-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .sidebar-top { display: flex; align-items: center; justify-content: flex-start; gap: 8px; }
 
     .brand {
       display: flex;
@@ -139,6 +139,30 @@
 
     .nav { list-style: none; overflow: auto; padding-right: 4px; display: flex; flex-direction: column; gap: 5px; }
     .nav-item { width: 100%; }
+
+    .nav {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(30, 215, 96, 0.55) rgba(255, 255, 255, 0.06);
+    }
+
+    .nav::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .nav::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+    }
+
+    .nav::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(30, 215, 96, 0.9), rgba(17, 158, 70, 0.9));
+      border-radius: 999px;
+      border: 2px solid rgba(9, 13, 12, 0.9);
+    }
+
+    .nav::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(72, 236, 126, 0.95), rgba(22, 182, 81, 0.95));
+    }
 
     .nav-link {
       width: 100%;
@@ -367,13 +391,6 @@
             <p><?php echo h((string) ($settings["brand_subtitle"] ?? "Shopify + Liquid en castellano")); ?></p>
           </div>
         </div>
-        <label class="icon-btn" for="collapseToggle" aria-label="Contraer menu">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M4 12h16"></path>
-            <path d="M4 6h16"></path>
-            <path d="M4 18h16"></path>
-          </svg>
-        </label>
       </div>
 
       <form class="search-form" method="get" action="">

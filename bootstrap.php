@@ -1,6 +1,55 @@
 <?php
 declare(strict_types=1);
 
+function load_env_file(string $filePath): void
+{
+    if (!is_file($filePath) || !is_readable($filePath)) {
+        return;
+    }
+
+    $lines = file($filePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    if ($lines === false) {
+        return;
+    }
+
+    foreach ($lines as $line) {
+        $trimmed = trim($line);
+        if ($trimmed === "" || substr($trimmed, 0, 1) === "#") {
+            continue;
+        }
+
+        $parts = explode("=", $trimmed, 2);
+        if (count($parts) !== 2) {
+            continue;
+        }
+
+        $key = trim($parts[0]);
+        if ($key === "") {
+            continue;
+        }
+
+        $value = trim($parts[1]);
+        $length = strlen($value);
+        if ($length >= 2) {
+            $first = $value[0];
+            $last = $value[$length - 1];
+            if (($first === '"' && $last === '"') || ($first === "'" && $last === "'")) {
+                $value = substr($value, 1, -1);
+            }
+        }
+
+        if (getenv($key) !== false) {
+            continue;
+        }
+
+        putenv($key . "=" . $value);
+        $_ENV[$key] = $value;
+        $_SERVER[$key] = $value;
+    }
+}
+
+load_env_file(__DIR__ . "/.env");
+
 function h(string $text): string
 {
     return htmlspecialchars($text, ENT_QUOTES, "UTF-8");
@@ -71,7 +120,7 @@ function get_page_content(PDO $pdo, string $slug): ?array
     return $row === false ? null : $row;
 }
 
-function sim_get(array $data, string $path): mixed
+function sim_get(array $data, string $path)
 {
     $keys = array_values(array_filter(explode(".", $path)));
     $value = $data;
@@ -87,7 +136,7 @@ function sim_get(array $data, string $path): mixed
     return $value;
 }
 
-function sim_filter(mixed $value, string $filter): mixed
+function sim_filter($value, string $filter)
 {
     $text = (string) $value;
 
