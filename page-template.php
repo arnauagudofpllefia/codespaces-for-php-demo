@@ -411,7 +411,7 @@
           <?php foreach ($pages as $pageItem): ?>
             <?php $active = ($pageItem["slug"] === $currentSlug) ? "active" : ""; ?>
             <li class="nav-item">
-              <a class="nav-link <?php echo $active; ?>" href="<?php echo h((string) $pageItem["file_name"]); ?>">
+              <a class="nav-link <?php echo $active; ?>" href="<?php echo h('/?page=' . (string) $pageItem["slug"]); ?>">
                 <span class="nav-label"><?php echo h((string) $pageItem["label"]); ?></span>
               </a>
             </li>
